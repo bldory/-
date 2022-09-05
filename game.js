@@ -94,8 +94,13 @@ function setstage() {
     case 3: 
       drawButton(whalf, 75, 8, 'shield');
       break;
+      
+    case 4: 
+      drawButton(whalf, 125, 9, 'teleport');
+      teleport();
+      break;
 
-    case 4:
+    case 5:
       drawButton(whalf, 75, 1, 'vmove');
       break;
       
