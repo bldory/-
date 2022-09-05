@@ -1,0 +1,68 @@
+h1 {
+  font-family: "HBIOS-SYS";
+  font-weight: lighter;
+}
+
+@font-face {
+    font-family: 'HBIOS-SYS';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/HBIOS-SYS.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  user-select: none;
+}
+
+#startbtn {
+  text-decoration: none;
+  font-family: 'HBIOS-SYS';
+  background: #d00;
+  border: #666 solid 2px;
+  color: #fff;
+  padding: 1px 2px 7px 2px;
+  vertical-align: middle;
+  width: 85px;
+  display: inline-block;
+}
+
+#startbtn:hover{
+  background: #a00;
+  border: #444 solid 2px;
+  color: #fff;
+}
+
+button {
+  background-color: #fff;
+  color: #000;
+  animation-direction: alternate-reverse;
+}
+
+button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+@keyframes vmove0 {
+  from {
+    left: 10%;
+  }
+  to {
+    left: 90%;
+  }
+}
+
+@keyframes vmove1 {
+  from {
+    left: 90%;
+  }
+  to {
+    left: 10%;
+  }
+}
+
+#teleport {
+  border-color: darkviolet;
+}
