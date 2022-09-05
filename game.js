@@ -31,7 +31,7 @@ var whalf = window.innerWidth / 2 - 22.5;
  * @param {number} dur 
  */
 
-function drawButton(x, y, hp, type = 'defult', dir = 0, dur = 500, name = '버튼') {
+function drawButton(x, y, hp, type = 'defult', dir = 0, dur = 300, name = '버튼') {
   var btn = document.createElement('button');
   btncount += hp;
   btn.textContent = name;
@@ -47,19 +47,32 @@ function drawButton(x, y, hp, type = 'defult', dir = 0, dur = 500, name = '버�
   btn.style.animationDuration = dur + 'ms';
   document.body.appendChild(btn);
   var hit = 0;
+  if(type == 'shield') {
+    shield(hp, name);
+  }
   btn.addEventListener('click', function() {
     btncount--;
     hit++;
-    btn.style.backgroundColor = "#" + Math.round(16 - (16 / hp * hit)).toString(16) + Math.round(16 - (16 / hp * hit)).toString(16) + Math.round(16 - (16 / hp * hit)).toString(16);
-    btn.style.color = "#" + Math.round(16 / hp * hit).toString(16) + Math.round(16 / hp * hit).toString(16) + Math.round(16 / hp * hit).toString(16);
-    if(hit >= hp) {
+    if(type != 'shield') {
+      btn.style.backgroundColor = "#" + Math.round(16 - (16 / hp * hit)).toString(16) + Math.round(16 - (16 / hp * hit)).toString(16) + Math.round(16 - (16 / hp * hit)).toString(16);
+      btn.style.color = "#" + Math.round(16 / hp * hit).toString(16) + Math.round(16 / hp * hit).toString(16) + Math.round(16 / hp * hit).toString(16);
+    }
+    else {
       this.remove();
-      hit = 0;
+      btncount -= hp - 1;
+      console.log(btncount);
       if(btncount == 0) {
         next();
       }
     }
-  });
+    if(hit >= hp) {
+        this.remove();
+        hit = 0;
+      if(btncount == 0) {
+        next();
+      }
+    }
+    });
 }
 
 /**
@@ -69,33 +82,25 @@ function setstage() {
   var til = document.querySelector('h1');
   til.textContent = '스테이지' + stagenum;
   switch(stagenum) {
-    /*
+    
     case 1:
-      drawButton(whalf, 75, 6, 'teleport');
-      teleport();
+      drawButton(whalf, 75, 1);
       break;
 
     case 2: 
-      drawButton(whalf + 75, 75, 1);
-      drawButton(whalf - 75, 75, 1);
+      drawButton(whalf, 75, 8);
       break;
 
     case 3: 
-      drawButton(whalf + 125, 75, 1);
-      drawButton(whalf - 125, 75, 1);
-      drawButton(whalf, 75, 1);
+      drawButton(whalf, 75, 8, 'shield');
       break;
 
     case 4:
       drawButton(whalf, 75, 1, 'vmove');
       break;
-
-    case 5:
-      drawButton(0, 75, 1, 'random');
-      break;
-    */
+      
     default:
-      alert('점검중');
+      alert('CLEAR!!!');
       location.href = "./index.html"
       break;
   }
@@ -108,12 +113,30 @@ function next() {
   stagenum++;
   setstage();
 }
+
 function teleport() {
   var teleport = document.getElementById('teleport');
   teleport.addEventListener('click', function() {
     teleport.style.left = rand(0, window.innerWidth - 22.5) + 'px';
     teleport.style.top = rand(0, window.innerHeight - 22.5) + 'px';
   });
+}
+
+function shield(delay, ortext) {
+  /**
+   * @type HTMLButtonElement
+   */
+  var shield = document.getElementById('shield');
+  shield.disabled = true;
+  shield.textContent = '방패';
+  var shieldinerval = setInterval(() => {
+    shield.disabled = false;
+    shield.textContent = ortext;
+    setTimeout(() => {
+      shield.disabled = true;
+      shield.textContent = "방패";
+    }, 175)
+  }, delay * 400);
 }
 
 /**
